@@ -3,12 +3,16 @@
 #include <time.h>
 
 int main(int argc, char* argv[]) {
+	if(argc < 2){
+		printf("\nEnter the name of Executable as an arguement\n");
+		return 0;
+	}
 	FILE *file;
 	file = fopen(argv[1], "rb"); //Name of PE is passed via command line arguements
 	fseek(file, 0, SEEK_END);
 	int num = ftell(file);
 	fseek(file, 0, SEEK_SET);
-	char *buffer = (char*)malloc(num);
+	char *buffer = (char*)malloc(num * sizeof(char));
 	fread(buffer, 1, num, file);
 
 	IMAGE_DOS_HEADER* DOSHeader;
