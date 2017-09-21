@@ -22,6 +22,54 @@ int main(int argc, char* argv[]) {
 	FileHeader = NtHeader->FileHeader;
 	time_t aye = (time_t)FileHeader.TimeDateStamp;
 	char *time= ctime(&aye);
-	printf("This file was compiled on %s", time);
+	printf("\nCompile Date       : %s", time);
+	
+	numofsections = FileHeader.NumberOfSections;
+	printf("Number of sections : %d\n", numofsections);
+
+	IMAGE_OPTIONAL_HEADER OptionalHeader;
+	OptionalHeader = NtHeader->OptionalHeader;
+
+	int RelativeEntry,Baseofcode,Baseofdata,Imagebase,checksum,subsystem;
+
+	Imagebase = OptionalHeader.ImageBase;
+	RelativeEntry = OptionalHeader.AddressOfEntryPoint;
+	Baseofcode = OptionalHeader.BaseOfCode;
+	Baseofdata = OptionalHeader.BaseOfData;
+	checksum = OptionalHeader.CheckSum;
+	subsystem = OptionalHeader.Subsystem;
+
+	printf("Image Base         : %08x\n", Imagebase);
+	printf("Relative Entry Add.: %08x\n", RelativeEntry);
+	printf("Base Of Code       : %08x\n", Baseofcode);
+	printf("Base Of Data       : %08x\n", Baseofdata);
+	printf("Checksum           : %08x\n", checksum);
+	printf("SubSystem          : ");
+
+	if (subsystem == 0) {
+		printf("Unknown Subsystem\n");
+	}
+	else if (subsystem == 1) {
+		printf("No Subsystem Required\n");
+	}
+	else if (subsystem == 2) {
+		printf("Windows graphical user interface (GUI) subsystem\n");
+	}
+	else if (subsystem == 3) {
+		printf("Windows character-mode user interface (CUI) subsystem(Console Application)\n");
+	}
+	else if (subsystem == 5) {
+		printf("OS/2 CUI subsystem\n");
+	}
+	else if (subsystem == 7) {
+		printf("POSIX CUI subsystem\n");
+	}
+	else if (subsystem == 9) {
+		printf("Windows CE System\n");
+	}
+	else if (subsystem == 16) {
+		printf("Boot Application\n");
+	}
+	
 	fclose(file);
 }   
