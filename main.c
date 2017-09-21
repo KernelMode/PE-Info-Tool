@@ -75,5 +75,24 @@ int main(int argc, char* argv[]) {
 		printf("Boot Application\n");
 	}
 	
+	IMAGE_SECTION_HEADER *ImageSection;
+	BYTE *Name;
+	DWORD RelVirtualAdd,PtoRaw,SofRaw,VirtualS;
+	for (int i = 0; i < numofsections; i++) {
+		ImageSection = PIMAGE_SECTION_HEADER(buffer + DOSHeader->e_lfanew + 248 + (i * 40));
+		Name = ImageSection->Name;
+		RelVirtualAdd = ImageSection->VirtualAddress;
+		PtoRaw = ImageSection->PointerToRawData;
+		SofRaw = ImageSection->SizeOfRawData;
+		VirtualS = ImageSection->Misc.VirtualSize;
+
+		printf("\nSection - %d\n", i+1);
+		printf("Name of Section : %s\n", Name);
+		printf("Virtual Size    : %08x\n", VirtualS);
+		printf("Relative Virtual Add. : %08x\n", RelVirtualAdd);
+		printf("Pointer to RawData : %08x\n", PtoRaw);
+		printf("Size of RawData : %08x\n", SofRaw);
+	}
+	
 	fclose(file);
 }   
