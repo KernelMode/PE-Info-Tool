@@ -1,2 +1,3 @@
-# PECompileTime
-Console Program to get the date and time at which a particular PE(Portable Executable) was compiled
+# PE-Info-Tool
+
+Console Program to get basic info about a Portable Executable
