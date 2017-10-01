@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 	char *time= ctime(&aye);
 	printf("\nCompile Date       : %s", time);
 	
-	numofsections = FileHeader.NumberOfSections;
+	int numofsections = FileHeader.NumberOfSections;
 	printf("Number of sections : %d\n", numofsections);
 
 	IMAGE_OPTIONAL_HEADER OptionalHeader;
